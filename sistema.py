@@ -203,31 +203,31 @@ while 1:
             msg = False
 
         # Possível adição: conferir input correto
-        com = int(input("Insira número:"))
+        com = input("Insira número:")
 
-        if com == 1:
+        if com == "1":
             #Cadastra nova matéria
             msg = Materia.cadastrar_materia()
 
-        elif com == 2:
+        elif com == "2":
             #Cadastra novo professor
             msg = Professor.cadastrar_professor()
 
-        elif com == 3:
+        elif com == "3":
             msg = Aluno.cadastrar_aluno()
 
-        elif com == 4:
+        elif com == "4":
             msg = Materia.mostrar_materias()
 
-        elif com == 5:
+        elif com == "5":
             msg = Professor.mostrar_professores()
 
-        elif com == 6:
+        elif com == "6":
             msg = Aluno.mostrar_alunos()
 
-        elif com == 7:
+        elif com == "7":
             break
-        elif com == 8:
+        elif com == "8":
             break
 
 print("loop ended")
