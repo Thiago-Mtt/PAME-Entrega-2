@@ -4,8 +4,13 @@ import os
 def clear():
     os.system('cls' if os.name=='nt' else 'clear')
 
-
-
+#Função para checar entrada "voltar"
+def check_voltar(resp):
+    resp = resp.upper()
+    if resp == "VOLTAR":
+            return True
+    else:
+        return False
 
 class Materia:
 
@@ -32,21 +37,17 @@ class Materia:
         print("Cadastro de matérias (Nome, Créditos, Carga Horária)")
         print("Insira [Voltar] para cancelar a operação\n\n")
         nome = input("Insira o nome:")
-        if nome == "Voltar":
-            msg = "Cadastro de matéria cancelado\n"
-            return msg
+        if check_voltar(nome):
+            return "Cadastro de matéria cancelado\n"
         creditos = input("Insira quantos créditos:")
-        if creditos == "Voltar":
-            msg = "Cadastro de matéria cancelado\n"
-            return msg
+        if check_voltar(creditos):
+            return "Cadastro de matéria cancelado\n"
         carga_horaria = input("Insira a carga horário:")
-        if carga_horaria == "Voltar":
-            msg = "Cadastro de matéria cancelado\n"
-            return msg   
+        if check_voltar(carga_horaria):
+            return "Cadastro de matéria cancelado\n" 
         mat = Materia(nome, creditos, carga_horaria)
         mat.guardar_materia()
-        msg = f'Matéria {mat.nome} criada com sucesso'
-        return msg
+        return f'Matéria {mat.nome} criada com sucesso'
 
     @classmethod
     def mostrar_materias(cls):
@@ -78,17 +79,14 @@ class Professor:
         print("Cadastro de professores (Nome, ID)")
         print("Insira [Voltar] para cancelar a operação\n\n")
         nome = input("Insira o nome:")
-        if nome == "Voltar":
-            msg = "Cadastro de professor cancelado\n"
-            return msg
+        if check_voltar(nome):
+            return "Cadastro de professor cancelado\n"
         id = input("Insira o ID(XXX):")
-        if id == "Voltar":
-            msg = "Cadastro de professor cancelado\n"
-            return msg
+        if check_voltar(id):
+            return "Cadastro de professor cancelado\n"
         prof = Professor(nome, id)
         prof.guardar_professor()
-        msg = f'Professor {prof.nome} cadastrado com sucesso'
-        return msg
+        return f'Professor {prof.nome} cadastrado com sucesso'
 
     @classmethod
     def mostrar_professores(cls):
@@ -121,17 +119,14 @@ class Aluno:
         print("Cadastro de alunos (Nome, matricula)")
         print("Insira [Voltar] para cancelar a operação\n\n")
         nome = input("Insira o nome:")
-        if nome == "Voltar":
-            msg = "Cadastro de aluno cancelado\n"
-            return msg
+        if check_voltar(nome):
+            return "Cadastro de aluno cancelado\n"
         matricula = input("Insira o matrícula(XXX):")
-        if matricula == "Voltar":
-            msg = "Cadastro de aluno cancelado\n"
-            return msg
+        if check_voltar(matricula):
+            return "Cadastro de aluno cancelado\n" 
         aluno = Aluno(nome, matricula)
         aluno.guardar_aluno()
-        msg = f'Aluno {aluno.nome} cadastrado com sucesso'
-        return msg
+        return f'Aluno {aluno.nome} cadastrado com sucesso'
 
     @classmethod
     def mostrar_alunos(cls):
