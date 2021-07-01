@@ -24,7 +24,7 @@ class Materia:
         return f"Nome: {self.nome}  Creditos: {self.creditos}  Carga horária: {self.carga_horaria}"
 
     def guardar_materia(self):
-        Materia.materias.extend([self.nome, self.creditos, self.carga_horaria])
+        Materia.materias.append([self.nome, self.creditos, self.carga_horaria])
 
     @staticmethod
     def cadastrar_materia():
@@ -53,15 +53,8 @@ class Materia:
         clear()
         print("Matérias:")
         print("Nome     Créditos     Carga Horária")
-        n = 0
-        linha = ""
-        for dado in cls.materias:
-            linha += f'{dado}       '
-            n += 1
-            if n == cls.n_atributos:
-                print(linha)
-                n=0
-                linha = ""
+        for materia in cls.materias:
+            print(f'{materia[0]}        {materia[1]}        {materia[2]}')
         n = input("\nAperte Enter para voltar ao Menu Principal")
         return False
 
@@ -79,7 +72,7 @@ class Professor:
         return f"Nome: {self.nome}  ID: {self.id}"
 
     def guardar_professor(self):
-        Professor.professores.extend([self.nome, self.id])
+        Professor.professores.append([self.nome, self.id])
 
     @staticmethod
     def cadastrar_professor():
@@ -104,15 +97,8 @@ class Professor:
         clear()
         print("Professores:")
         print("Nome     ID")
-        n = 0
-        linha = ""
-        for dado in cls.professores:
-            linha += f'{dado}       '
-            n += 1
-            if n == cls.n_atributos:
-                print(linha)
-                n=0
-                linha = ""
+        for professor in cls.professores:
+            print(f'{professor[0]}        {professor[1]}')
         n = input("\nAperte Enter para voltar ao Menu Principal")
         return False
 
@@ -131,7 +117,7 @@ class Aluno:
         return f"Nome: {self.nome}  Matrícula: {self.matricula}"
 
     def guardar_aluno(self):
-        Aluno.alunos.extend([self.nome, self.matricula])
+        Aluno.alunos.append([self.nome, self.matricula])
 
     @staticmethod
     def cadastrar_aluno():
@@ -156,15 +142,8 @@ class Aluno:
         clear()
         print("Alunos:")
         print("Nome     Matrícula")
-        n = 0
-        linha = ""
-        for dado in cls.alunos:
-            linha += f'{dado}       '
-            n += 1
-            if n == cls.n_atributos:
-                print(linha)
-                n=0
-                linha = ""
+        for aluno in cls.alunos:
+            print(f'{aluno[0]}        {aluno[1]}')
         n = input("\nAperte Enter para voltar ao Menu Principal")
         return False
 
