@@ -4,8 +4,13 @@ import os
 def clear():
     os.system('cls' if os.name=='nt' else 'clear')
 
-
-
+#Função para checar entrada "voltar"
+def check_voltar(resp):
+    resp = resp.upper()
+    if resp == "VOLTAR":
+            return True
+    else:
+        return False
 
 class Materia:
 
@@ -32,21 +37,17 @@ class Materia:
         print("Cadastro de matérias (Nome, Créditos, Carga Horária)")
         print("Insira [Voltar] para cancelar a operação\n\n")
         nome = input("Insira o nome:")
-        if nome == "Voltar":
-            msg = "Cadastro de matéria cancelado\n"
-            return msg
+        if check_voltar(nome):
+            return "Cadastro de matéria cancelado\n"
         creditos = input("Insira quantos créditos:")
-        if creditos == "Voltar":
-            msg = "Cadastro de matéria cancelado\n"
-            return msg
+        if check_voltar(creditos):
+            return "Cadastro de matéria cancelado\n"
         carga_horaria = input("Insira a carga horário:")
-        if carga_horaria == "Voltar":
-            msg = "Cadastro de matéria cancelado\n"
-            return msg   
+        if check_voltar(carga_horaria):
+            return "Cadastro de matéria cancelado\n" 
         mat = Materia(nome, creditos, carga_horaria)
         mat.guardar_materia()
-        msg = f'Matéria {mat.nome} criada com sucesso'
-        return msg
+        return f'Matéria {mat.nome} criada com sucesso'
 
     @classmethod
     def mostrar_materias(cls):
@@ -78,17 +79,14 @@ class Professor:
         print("Cadastro de professores (Nome, ID)")
         print("Insira [Voltar] para cancelar a operação\n\n")
         nome = input("Insira o nome:")
-        if nome == "Voltar":
-            msg = "Cadastro de professor cancelado\n"
-            return msg
+        if check_voltar(nome):
+            return "Cadastro de professor cancelado\n"
         id = input("Insira o ID(XXX):")
-        if id == "Voltar":
-            msg = "Cadastro de professor cancelado\n"
-            return msg
+        if check_voltar(id):
+            return "Cadastro de professor cancelado\n"
         prof = Professor(nome, id)
         prof.guardar_professor()
-        msg = f'Professor {prof.nome} cadastrado com sucesso'
-        return msg
+        return f'Professor {prof.nome} cadastrado com sucesso'
 
     @classmethod
     def mostrar_professores(cls):
@@ -121,17 +119,14 @@ class Aluno:
         print("Cadastro de alunos (Nome, matricula)")
         print("Insira [Voltar] para cancelar a operação\n\n")
         nome = input("Insira o nome:")
-        if nome == "Voltar":
-            msg = "Cadastro de aluno cancelado\n"
-            return msg
+        if check_voltar(nome):
+            return "Cadastro de aluno cancelado\n"
         matricula = input("Insira o matrícula(XXX):")
-        if matricula == "Voltar":
-            msg = "Cadastro de aluno cancelado\n"
-            return msg
+        if check_voltar(matricula):
+            return "Cadastro de aluno cancelado\n" 
         aluno = Aluno(nome, matricula)
         aluno.guardar_aluno()
-        msg = f'Aluno {aluno.nome} cadastrado com sucesso'
-        return msg
+        return f'Aluno {aluno.nome} cadastrado com sucesso'
 
     @classmethod
     def mostrar_alunos(cls):
@@ -162,29 +157,22 @@ class Turma:
     @staticmethod
     def cadastrar_turma():
         nome = input("\nInsira o nome:")
-        if nome == "Voltar":
-            msg = "Cadastro de turma cancelado\n"
-            return msg
+        if check_voltar(nome):
+            return "Cadastro de turma cancelado\n"
         mat = input("Insira uma materia da lista (nome):")
-        if mat == "Voltar":
-            msg = "Cadastro de turma cancelado\n"
-            return msg
+        if check_voltar(mat):
+            return "Cadastro de materia cancelado\n"
         for materia in Materia.materias:
             if mat == materia[0]:
                 turma = Turma(nome, materia[0])
                 turma.guardar_turma()
-                msg = f'Turma {turma.nome} de {turma.materia} cadastrada com sucesso'
-                return msg
-
-        msg = "Materia não encontrada"
-        return msg
+                return f'Turma {turma.nome} de {turma.materia} cadastrada com sucesso'
+        return "Materia não encontrada"
         
     @classmethod
     def mostrar_turmas(cls):
         lista = cls.turmas.copy()
-        lista_ordenada = []
-
-        
+        lista_ordenada = []      
         
         while lista:
             maior = 0
@@ -208,58 +196,49 @@ class Turma:
     def designar_professor(cls):
         cls.mostrar_turmas()
         tur = input("\nInsira uma turma(nome):")
-        if tur == "Voltar":
-            msg = "Designação cancelada"
-            return msg
+        if check_voltar(tur):
+            return "Designação cancelada\n"
         for turma in Turma.turmas:
             if tur == turma[0]:
                 print ("\n")
                 Professor.mostrar_professores()
                 prof = input("Insira um professor(nome):")
-                if prof == "Voltar":
-                    msg = "Designação cancelada"
-                    return msg
+                if check_voltar(prof):
+                    return "Designação cancelada\n"
                 for professor in Professor.professores:
                    if prof == professor[0]:
                         turma[2] = professor[0]
-                        msg = f'Professor {professor[0]} designado à turma {turma[0]} com sucesso'
-                        return msg
-        msg = "Designação falhou"
-        return msg
+                        return f'Professor {professor[0]} designado à turma {turma[0]} com sucesso'
+        return "Designação falhou"
 
     @classmethod
     def adicionar_alunos(cls):
         cls.mostrar_turmas()
         tur = input("\nInsira uma turma(nome):")
-        if tur == "Voltar":
-            msg = "Adição de alunos cancelada"
-            return msg
+        if check_voltar(tur):
+            return "Adição de alunos cancelada\n"
         for turma in Turma.turmas:
             if tur == turma[0]:
                 #sugestão, adicionar mais de 1 aluno por vez
                 print ("\n")
                 Aluno.mostrar_alunos()
                 alun = input("Insira o aluno(nome):")
-                if alun == "Voltar":
-                    msg = "Adição de alunos cancelada"
-                    return msg
+                if check_voltar(alun):
+                    return "Adição de alunos cancelada\n"
                 for aluno in Aluno.alunos:
                    if alun == aluno[0]:
                         turma[3].append(aluno[0])
                         notas_finais = turma[4]
                         notas_finais[aluno[0]]=0
-                        msg = f'Aluno {aluno[0]} adicionado à turma {turma[0]} com sucesso'
-                        return msg
-        msg = "Adição de aluno falhou"
-        return msg
+                        return f'Aluno {aluno[0]} adicionado à turma {turma[0]} com sucesso'
+        return "Adição de aluno falhou"
 
     @classmethod
     def remover_alunos(cls):
         cls.mostrar_turmas()
         tur = input("\nInsira uma turma(nome):")
-        if tur == "Voltar":
-            msg = "Remoção de alunos cancelada"
-            return msg
+        if check_voltar(tur):
+            return "Remoção de alunos cancelada\n"
         for turma in Turma.turmas:
             if tur == turma[0]:
                 #sugestão, remover mais de 1 aluno por vez
@@ -267,25 +246,21 @@ class Turma:
                 for aluno in turma[3]:
                     print(aluno)
                 alun = input("Insira o aluno(nome):")
-                if alun == "Voltar":
-                    msg = "Remoção de alunos cancelada"
-                    return msg
+                if check_voltar(tur):
+                    return "Remoção de alunos cancelada\n"
                 if alun in turma[3]:
                     turma[3].remove(alun)
                     notas_finais = turma[4]
                     del notas_finais[alun]
-                    msg = f'Aluno {alun} removido da turma {turma[0]} com sucesso'
-                    return msg
-        msg = "Remoção de aluno falhou"
-        return msg
+                    return f'Aluno {alun} removido da turma {turma[0]} com sucesso'
+        return "Remoção de aluno falhou"
 
     @classmethod
     def mostrar_alunos_alf(cls):
         cls.mostrar_turmas()
         tur = input("\nInsira uma turma(nome):")
-        if tur == "Voltar":
-            msg = False
-            return msg
+        if check_voltar(tur):
+            return False
         for turma in Turma.turmas:
             if tur == turma[0]:
                 print (f'\nAlunos da turma {turma[0]} (ordem alfabética):')
@@ -293,18 +268,16 @@ class Turma:
                 lista.sort()
                 for i in range(len(lista)):
                     print(lista[i])
-                msg = False
-                return msg                
-        msg = "Turma não encontrada"
-        return msg
+                input("\nAperte Enter para voltar ao Menu Principal")
+                return False
+        return "Turma não encontrada"
 
     @classmethod
     def lancar_notas(cls):
         cls.mostrar_turmas()
         tur = input("\nInsira uma turma(nome):")
-        if tur == "Voltar":
-            msg = "Lançamento de notas cancelado"
-            return msg
+        if check_voltar(tur):
+            return "Lançamento de notas cancelada\n"
         for turma in Turma.turmas:
             if tur == turma[0]:
                 print (f'\nAlunos da turma {turma[0]} (ordem alfabética):')
@@ -350,17 +323,14 @@ class Turma:
                         print("")
                         resp = input("\nConfirmar(y)\nTentar novamente(n)\nDescartar(Voltar)\nComando:")
                         if resp == "Voltar":
-                            msg = "Lançamento de notas cancelado"
-                            return msg
+                            return "Lançamento de notas cancelado"
                         elif resp == "y":
                             turma[4]=notas_finais.copy()
-                            msg = f'Lançamento de notas da turma {turma[0]} realizado com sucesso'
-                            return msg
+                            return f'Lançamento de notas da turma {turma[0]} realizado com sucesso'
                         if resp == "n":
                             clear()
                             break               
-        msg = "Turma não encontrada"
-        return msg
+        return "Turma não encontrada"
 
 
 MenuPrincipal="""Bem-vindo ao SGU (Sistem de Gerenciamento de Universidade)\n
@@ -426,7 +396,7 @@ while 1:
             clear()
             msg = Aluno.mostrar_alunos()
             n = input("\nAperte Enter para voltar ao Menu Principal")
-
+            
         elif com == "7":
             Menu = 2
             continue
@@ -487,7 +457,6 @@ while 1:
             print("Registro de Alunos por turma")
             print("Insira [Voltar] para cancelar a operação\n")
             msg = Turma.mostrar_alunos_alf()
-            n = input("\nAperte Enter para voltar ao Menu Principal")
 
         elif com == "7":
             clear()
