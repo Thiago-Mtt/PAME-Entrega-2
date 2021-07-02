@@ -141,7 +141,7 @@ class Turma:
 
     turmas = [["1A","mat","",[],{}],["2B","port","",[],{}]]
 
-    def __init__(self, nome, materia, professor = "", alunos = [], notas_finais = {}):
+    def __init__(self, nome, materia, professor, alunos, notas_finais):
         self.nome = nome
         self.materia = materia
         self.professor = professor
@@ -164,7 +164,7 @@ class Turma:
             return "Cadastro de materia cancelado\n"
         for materia in Materia.materias:
             if mat == materia[0]:
-                turma = Turma(nome, materia[0])
+                turma = Turma(nome, materia[0], '', [], {})
                 turma.guardar_turma()
                 return f'Turma {turma.nome} de {turma.materia} cadastrada com sucesso'
         return "Materia não encontrada"
@@ -182,14 +182,14 @@ class Turma:
                 if len(turma[3]) >= maior:
                     maior = len(turma[3])
                     index = n
-                    n += 1
+                n += 1
             lista_ordenada.append(lista[index])
             del lista[index]
         
         print("Turmas:")
-        print("Nome     Matéria     Professor")
+        print("Nome     Matéria     Professor       Alunos")
         for turma in lista_ordenada:
-            print(f'{turma[0]}        {turma[1]}            {turma[2]}')
+            print(f'{turma[0]}        {turma[1]}            {turma[2]}          {len(turma[3])}')
 
     
     @classmethod
