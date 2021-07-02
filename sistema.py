@@ -182,14 +182,14 @@ class Turma:
                 if len(turma[3]) >= maior:
                     maior = len(turma[3])
                     index = n
-                    n += 1
+                n += 1
             lista_ordenada.append(lista[index])
             del lista[index]
         
         print("Turmas:")
-        print("Nome     Matéria     Professor")
+        print("Nome     Matéria     Professor       Alunos")
         for turma in lista_ordenada:
-            print(f'{turma[0]}        {turma[1]}            {turma[2]}')
+            print(f'{turma[0]}        {turma[1]}            {turma[2]}          {len(turma[3])}')
 
     
     @classmethod
